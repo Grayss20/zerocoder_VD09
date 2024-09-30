@@ -14,9 +14,13 @@ def load_user(user_id):
 
 
 @app.route('/')
-@login_required
+#@login_required
 def index():
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        return render_template('index.html')
+    else:
+        return redirect(url_for('login'))
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
