@@ -2,13 +2,22 @@ from flask import render_template, redirect, url_for, flash, request
 from app import app, db, bcrypt
 from app.models import User
 from app.forms import RegistrationForm, LoginForm
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/')
 @login_required
 def index():
     return render_template('index.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

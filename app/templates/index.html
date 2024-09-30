@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center mt-5">
+    <!-- Game Title -->
+    <h1 class="display-3 text-primary font-weight-bold mb-4">Кликер!</h1>
 
-</body>
-</html>
+    <!-- Click Count Display -->
+    <p class="lead text-success mb-4">Количество кликов - <span class="font-weight-bold">{{ current_user.clicks }}</span></p>
+
+    <!-- Action Button -->
+    <a href="{{ url_for('click') }}" class="btn btn-lg btn-warning shadow-lg rounded-pill px-5 py-3" role="button">
+        🎮 Нажми Меня!
+    </a>
+</div>
+{% endblock %}

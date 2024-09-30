@@ -2,9 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Online Game</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pzjw8f+ua7Kw1TIqQAI1G+GYCsF5hx9CxytG14CkC3p05dAWKx9zX5MEgKn1C5bQ" crossorigin="anonymous">
+    <!-- Optional Theme (you can choose any Bootstrap theme or customize it yourself) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom CSS for additional styling -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for contrast */
+        }
+        nav {
+            background-color: #007bff; /* Bright blue for vibrant feel */
+            padding: 15px;
+        }
+        nav a {
+            color: #ffffff;
+            margin-right: 15px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        nav a:hover {
+            color: #ffeb3b; /* Yellow on hover */
+        }
+        .messages {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .messages div {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .content {
+            margin: 40px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand text-white" href="{{ url_for('index') }}">🎮 Игра</a>
+    <div class="ml-auto">
+        {% if current_user.is_authenticated %}
+            <a class="text-white" href="{{ url_for('logout') }}">🚪 Выход из аккаунта</a>
+        {% else %}
+            <a class="text-white" href="{{ url_for('login') }}">🔑 Вход в аккаунт</a>
+            <a class="text-white" href="{{ url_for('register') }}">📝 Регистрация</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- Messages Section -->
+<div class="messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Main Content Section -->
+<div class="content">
+    {% block content %}
+    <!-- Dynamic content will be injected here -->
+    {% endblock %}
+</div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery (for interactive elements) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-4D9fZGNOwt2PB1N3pRl9GpW8rjA6M1q6sFPKqxJEcqgWm/nvBo1UyjU5LY9Fj6OT" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgEPZ8HA7ZHKq0S5fIbTv0N04RIICstUq2ib+Yh5meoPfTgf71R" crossorigin="anonymous"></script>
 
 </body>
 </html>
